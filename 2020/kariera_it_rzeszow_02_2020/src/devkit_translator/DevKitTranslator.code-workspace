@@ -1,0 +1,80 @@
+{
+    "folders": [
+        {
+            "path": "Device"
+        },
+        {
+            "path": "Functions"
+        }
+    ],
+    "settings": {
+        "IoTWorkbench.BoardId": "devkit",
+        "IoTWorkbench.DevicePath": "Device",
+        "IoTWorkbench.FunctionPath": "Functions",
+        "IoTWorkbench.iothubConnectionString": "HostName=mskuratowski-iot-hub-dev-01.azure-devices.net;SharedAccessKeyName=iothubowner;SharedAccessKey=FwNToPf060V+td1uquv7DvZfN5H/H+BvzHH0y2sPvPg=",
+        "IoTWorkbench.eventHubConnectionString": "Endpoint=sb://iothub-ns-mskuratows-2864149-213bd7b36e.servicebus.windows.net/;SharedAccessKeyName=iothubowner;SharedAccessKey=FwNToPf060V+td1uquv7DvZfN5H/H+BvzHH0y2sPvPg=",
+        "IoTWorkbench.eventHubConnectionPath": "mskuratowski-iot-hub-dev-",
+        "IoTWorkbench.iothubDeviceConnectionString": "HostName=mskuratowski-iot-hub-dev-01.azure-devices.net;DeviceId=mskuratowski-mxchip-01;SharedAccessKey=X37CxsO8q2xwl09a8RxzydaA/NrZJsIr9Q6XJkk61ZU=",
+        "IoTWorkbench.functionAppId": "/subscriptions/d258cafc-cbf7-4d27-a6d6-d80acbf01248/resourceGroups/mskuratowski-dev-weu-rg/providers/Microsoft.Web/sites/mskuratowski-devkit-translator-function"
+    },
+    "tasks": {
+        "tasks": [
+            {
+                "label": "clean",
+                "command": "dotnet clean",
+                "type": "shell",
+                "presentation": {
+                    "reveal": "always"
+                },
+                "problemMatcher": "$msCompile"
+            },
+            {
+                "label": "build",
+                "command": "dotnet build",
+                "type": "shell",
+                "dependsOn": "clean",
+                "group": {
+                    "kind": "build",
+                    "isDefault": true
+                },
+                "presentation": {
+                    "reveal": "always"
+                },
+                "problemMatcher": "$msCompile"
+            },
+            {
+                "label": "clean release",
+                "command": "dotnet clean --configuration Release",
+                "type": "shell",
+                "presentation": {
+                    "reveal": "always"
+                },
+                "problemMatcher": "$msCompile"
+            },
+            {
+                "label": "publish",
+                "command": "dotnet publish --configuration Release",
+                "type": "shell",
+                "dependsOn": "clean release",
+                "presentation": {
+                    "reveal": "always"
+                },
+                "problemMatcher": "$msCompile"
+            },
+            {
+                "label": "runFunctionsHost",
+                "type": "shell",
+                "dependsOn": "build",
+                "options": {
+                    "cwd": "${workspaceFolder}/bin/Debug/netcoreapp3.1"
+                },
+                "command": "func host start",
+                "isBackground": true,
+                "presentation": {
+                    "reveal": "always"
+                },
+                "problemMatcher": "$func-watch"
+            }
+        ]
+    }
+}

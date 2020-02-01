@@ -1,0 +1,1 @@
+#define AZURE_FUNCTION_URL "https://mskuratowski-devkit-translator-function.azurewebsites.net/api/devkit_translator?code=JupCn0Y80uE3gbyOfz7zYkdVU9DKCS0Fv5dcWY42AkeAOTmEgnuvGA=="
